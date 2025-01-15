@@ -12,7 +12,6 @@ const eventEndDate = new Date(2025, 0, 15, 23, 59, 59);
 const corsOptions = {
     origin: process.env.CLIENT_URL,
     methods: "GET, POST",
-    allowedHeaders: ["Content-Type", "Authorization"],
 }
 
 const checkEvent = (req, res, next) => {
