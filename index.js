@@ -15,6 +15,7 @@ const corsOptions = {
 }
 
 const checkEvent = (req, res, next) => {
+    console.log(req.headers.origin)
     if (new Date() > eventEndDate) {
         res.status(307).json({ message: 'Cryptex has concluded' })
     } else {
