@@ -1,0 +1,26 @@
+{
+  "name": "cryptex-hunt",
+  "version": "1.0.0",
+  "description": "An online treasure hunt prepared by Quizzinga, the quizzing club of LNMIIT.",
+  "license": "ISC",
+  "author": "Syed Darain Quadri",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "build": "npm install && npm run start"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.47.12",
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "validator": "^13.12.0"
+  }
+}
