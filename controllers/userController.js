@@ -37,10 +37,10 @@ const authenticate = async (email) => {
             throw new Error('User is banned')
         }
         else if (user) {
-            const token = jwt.sign({ ...user }, process.env.JWT_SECRET, { expiresIn: '3d' })
             if (parseInt(user.current_question) > parseInt(process.env.QUESTION_COUNT)) {
                 return { message: 'A deed done and dusted\nYou are clearly the bravest to grace upon us\nYou have defeated the Cryptex', token }
             }
+            const token = jwt.sign({ ...user }, process.env.JWT_SECRET, { expiresIn: '3d' })
             const question = await fetchQuestion({ ...user })
             return { ...user, ...question, token }
         }
@@ -94,9 +94,9 @@ const winner = (res, token) => {
 const submitAnswer = async (req, res) => {
     try {
         const user = req.user
-        let answer = req.body.answer.trim().toLowerCase()
+        let answer = req.body.answer.toLowerCase().trim()
 
-        if (!user || !answer) {
+        if (!user) {
             throw new Error("Request has been manipulated")
         }
 
@@ -125,8 +125,8 @@ const submitAnswer = async (req, res) => {
             console.error(fault)
         }
 
-        if (answer === questionInfo.answer) {
-            if (parseInt(user.current_question) == parseInt(process.env.QUESTION_COUNT)) {
+        if (`f${answer}` === `f${questionInfo.answer}`) {
+            if (parseInt(user.current_question) >= parseInt(process.env.QUESTION_COUNT)) {
                 const { error: bug } = await supabase
                     .from('users')
                     .update({ current_question: user.current_question + 1 })
@@ -146,7 +146,7 @@ const submitAnswer = async (req, res) => {
                 }
                 const token = jwt.sign({ ...user, current_question: user.current_question + 1 }, process.env.JWT_SECRET)
                 const question = await fetchQuestion({ current_question: user.current_question + 1 })
-                res.status(201).json({ user: { ...user, ...question, token } })
+                res.status(201).json({ user: { ...user, current_question: user.current_question + 1, ...question, token } })
             }
         } else {
             throw new Error('Incorrect Answer')
