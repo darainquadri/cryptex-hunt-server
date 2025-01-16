@@ -125,7 +125,7 @@ const submitAnswer = async (req, res) => {
             console.error(fault)
         }
 
-        if (`f${answer}` === `f${questionInfo.answer}`) {
+        if (`f${answer}` === `f${questionInfo.answer.toLowerCase().trim()}`) {
             if (parseInt(user.current_question) >= parseInt(process.env.QUESTION_COUNT)) {
                 const { error: bug } = await supabase
                     .from('users')
