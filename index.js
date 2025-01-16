@@ -7,7 +7,7 @@ configDotenv()
 
 const app = express()
 const PORT = process.env.PORT || 3000
-const eventEndDate = new Date(2025, 0, 19, 23, 59, 59)
+const eventEndDate = new Date(2025, 0, 19, 18, 29, 59)
 
 const corsOptions = {
     origin: process.env.CLIENT_URL,
