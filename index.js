@@ -7,7 +7,7 @@ configDotenv()
 
 const app = express()
 const PORT = process.env.PORT || 3000
-const eventEndDate = new Date(2025, 0, 15, 23, 59, 59)
+const eventEndDate = new Date(2025, 0, 19, 23, 59, 59)
 
 const corsOptions = {
     origin: process.env.CLIENT_URL,
@@ -16,6 +16,8 @@ const corsOptions = {
 
 const checkEvent = (req, res, next) => {
     console.log(req.headers.origin)
+    console.log(eventEndDate)
+    console.log(new Date())
     if (new Date() > eventEndDate) {
         res.status(307).json({ message: 'Cryptex has concluded' })
     } else {
